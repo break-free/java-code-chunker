@@ -61,19 +61,23 @@ def get_file_list(code_path, file_extension):
     return file_list
 
 if __name__ == "__main__":
-
+    # Use the command parameter to gather data based on a file extension.
     training_data = list()
-
     if len(sys.argv) != 2 :
         print("Enter one and only one absolute or relative path to ")
         print("a directory containing the Java code to be chunked.")
     else:
         training_data = get_file_list(sys.argv[1], "*.java")
-
+    # Declare a dict/lookup to abbreviate Java type declarations.
+    declarations = { 
+        javalang.tree.EnumDeclaration: "enum",
+        javalang.tree.ClassDeclaration: "class", 
+        javalang.tree.AnnotationDeclaration: "annotation",
+        javalang.tree.InterfaceDeclaration: "interface"
+    }
+    # Loop through each file and pull key information as chunks
     files_failing_parsing = []
-    declarations = set()
-    methods = []
-
+    chunks = []
     for training in training_data:
 
         with open(training, 'r') as r:
@@ -83,18 +87,40 @@ if __name__ == "__main__":
         try:
             tree = javalang.parse.parse(code_text)
         except javalang.parser.JavaSyntaxError as e:
-            files_failing_parsing.append(training)
+            files_failing_parsing.append(
+                str(training)+" due to JavaSyntaxError"
+            )
             continue
 
-        for t in tree.types:
-            declarations.add(type(t))
-    
-    print("The set of declarations used in the application are:")
-    for d in declarations:
-        print(d)
-    print("The files that were NOT parsed are:")
-    for f in files_failing_parsing:
-        print(f)
+        if len(tree.types) > 1:
+            file_failing_parsing(
+                str(training)+" due to more than one included type."
+            )
+            continue
+
+        t = tree.types[0]
+        declaration_type = declarations.get(type(t))
+        print(t.name)
+        print(declaration_type)
+        lex = None
+        for _, method_node in tree.filter(javalang.tree.MethodDeclaration):
+            startp, endp, startl, endl = get_method_start_end(method_node)
+            method_text, startl, endl, lex = get_method_text(startp, endp, startl, endl, lex)
+            chunks.append( {
+                "type": declarations.get(type(t)),
+                "name": t.name,
+                "method": method_text
+            } )
+
+
+    # Print statements for testing
+    if len(files_failing_parsing) > 0:
+        print("The files that were NOT parsed are:")
+        for f in files_failing_parsing:
+            print(f)
+    print("Chunks")
+    for c in chunks:
+        print(c)
 
 
 #         lex = None
