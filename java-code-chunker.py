@@ -1,5 +1,4 @@
 import javalang
-import json
 import re
 import sys
 from pathlib import Path
@@ -69,7 +68,7 @@ if __name__ == "__main__":
     else:
         training_data = get_file_list(sys.argv[1], "*.java")
     # Declare a dict/lookup to abbreviate Java type declarations.
-    declarations = { 
+    declaration_types = { 
         javalang.tree.EnumDeclaration: "enum",
         javalang.tree.ClassDeclaration: "class", 
         javalang.tree.AnnotationDeclaration: "annotation",
@@ -79,11 +78,10 @@ if __name__ == "__main__":
     files_failing_parsing = []
     chunks = []
     for training in training_data:
-
         with open(training, 'r') as r:
             codelines = r.readlines()
             code_text = ''.join(codelines)
-
+        # Attempt to parse file; failures are recorded for future reference.
         try:
             tree = javalang.parse.parse(code_text)
         except javalang.parser.JavaSyntaxError as e:
@@ -91,36 +89,37 @@ if __name__ == "__main__":
                 str(training)+" due to JavaSyntaxError"
             )
             continue
-
+        # For simplicity, only consider files that contain one type only.
         if len(tree.types) > 1:
             file_failing_parsing(
                 str(training)+" due to more than one included type."
             )
             continue
 
+        package_name = tree.package.name
+        print(tree.imports)
         t = tree.types[0]
-        declaration_type = declarations.get(type(t))
-        print(t.name)
-        print(declaration_type)
+        print(type(t))
+        declaration_type = declaration_types.get(type(t))
         lex = None
-        for _, method_node in tree.filter(javalang.tree.MethodDeclaration):
+        for  method_node in t.methods:
             startp, endp, startl, endl = get_method_start_end(method_node)
             method_text, startl, endl, lex = get_method_text(startp, endp, startl, endl, lex)
             chunks.append( {
-                "type": declarations.get(type(t)),
+                "package": package_name,
+                "type": declaration_type,
                 "name": t.name,
                 "method": method_text
             } )
-
 
     # Print statements for testing
     if len(files_failing_parsing) > 0:
         print("The files that were NOT parsed are:")
         for f in files_failing_parsing:
             print(f)
-    print("Chunks")
-    for c in chunks:
-        print(c)
+#    print("Chunks")
+#    for c in chunks:
+#        print(c)
 
 
 #         lex = None
