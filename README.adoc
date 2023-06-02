@@ -4,6 +4,8 @@ Python library that chunks Java methods and variables for vector-store creation.
 
 == TODO
 
+* [line-through]#Extract Class/Enum/Interface/etc. declaration names.#
+* Create enclosing class/etc. code for methods/variable.
 * List method names and store in an array.
 * Store method code in an array (with or without annotations).
 * Extract variable sets from classes.
