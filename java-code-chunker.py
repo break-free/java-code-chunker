@@ -117,9 +117,9 @@ if __name__ == "__main__":
         print("The files that were NOT parsed are:")
         for f in files_failing_parsing:
             print(f)
-#    print("Chunks")
-#    for c in chunks:
-#        print(c)
+    print("Chunks")
+    for c in chunks:
+        print(c)
 
 
 #         lex = None
