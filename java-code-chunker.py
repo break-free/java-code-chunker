@@ -97,9 +97,9 @@ if __name__ == "__main__":
             continue
 
         package_name = tree.package.name
-        print(tree.imports)
+        # print(tree.imports)
         t = tree.types[0]
-        print(type(t))
+        # print(type(t))
         declaration_type = declaration_types.get(type(t))
         lex = None
         for  method_node in t.methods:
@@ -117,7 +117,7 @@ if __name__ == "__main__":
         print("The files that were NOT parsed are:")
         for f in files_failing_parsing:
             print(f)
-    print("Chunks")
+    print("Chunks\n------")
     for c in chunks:
         print(c)
 
