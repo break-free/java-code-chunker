@@ -35,6 +35,26 @@ Chunks
 {'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enum', 'name': 'AccountType', 'method': '    public boolean isGSIMAccount() {\n        return this.value.equals(AccountType.GSIM.getValue());\n    }'}
 ```
 
+Where:
+
+* `package` identifies the package of the declaration.
+* `type` identifies the type of the declaration (class, enumeration, association or interface).
+* `name` identified the name of the declaration.
+* `method` contains the body of a method belonging to the declaration.
+
+For example, the first line identifes:
+
+* `package` is 'org.apache.fineract.portfolio.accountdetails.domain'.
+* `type` is 'enum' (abbreviation for enumeration).
+* `name` identified the name of the declaration.
+* `method` contains the body of a method belonging to the declaration.
+
+== Notes
+
+Note the following:
+
+* `enum` is the abbreviation for 'enumeration'. It was used so that if recreation of code is required then the abbreviation, which is what is used in code, is available.
+
 == TODO
 
 * [*] Extract Class/Enum/Interface/etc. declaration names.
