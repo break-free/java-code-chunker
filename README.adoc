@@ -2,6 +2,39 @@
 
 Python library that chunks Java methods and variables for vector-store creation.
 
+== Environment Set-up
+
+A `toolbox` script, for use on a Fedora Linux system, is provided to create a `java-code-chunker` Toolbox with necessary libraries. Other Linux operating systems can follow the steps within the script to install. Microsoft Windows users could use WSL.
+
+== Using `java-code-chunker`
+
+To use the Python script, use the following command:
+
+    $ python3 java-code-chunker <CODE_DIRECTORY>
+
+Where:
+
+* *<CODE_DIRECTORY>* is the directory with Java code in it. The script will recurse through the directory so subdirectories can be present. Note that only `*.java` files will be searched for.
+
+The output of the command will print to console something like this:
+
+[source,bash]
+```
+Chunks
+------
+{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enum', 'name': 'AccountType', 'method': '    public static AccountType fromInt(final Integer accountTypeValue) {\n\n        AccountType enumeration = AccountType.INVALID;\n        switch (accountTypeValue) {\n            case 1:\n                enumeration = AccountType.INDIVIDUAL;\n            break;\n            case 2:\n                enumeration = AccountType.GROUP;\n            break;\n            case 3:\n                enumeration = AccountType.JLG;\n            break;\n            case 4:\n                enumeration = AccountType.GLIM;\n            break;\n            case 5:\n                enumeration = AccountType.GSIM;\n            break;\n        }\n        return enumeration;\n    }'}
+{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enum', 'name': 'AccountType', 'method': '    public static AccountType fromName(final String name) {\n        AccountType accountType = AccountType.INVALID;\n        for (final AccountType type : AccountType.values()) {\n            if (type.getName().equals(name)) {\n                accountType = type;\n                break;\n            }\n        }\n        return accountType;\n    }'}
+{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enum', 'name': 'AccountType', 'method': '    public Integer getValue() {\n        return this.value;\n    }'}
+{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enum', 'name': 'AccountType', 'method': '    public String getCode() {\n        return this.code;\n    }'}
+{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enum', 'name': 'AccountType', 'method': '    public String getName() {\n        return name().toLowerCase();\n    }'}
+{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enum', 'name': 'AccountType', 'method': '    public boolean isInvalid() {\n        return this.value.equals(AccountType.INVALID.getValue());\n    }'}
+{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enum', 'name': 'AccountType', 'method': '    public boolean isIndividualAccount() {\n        return this.value.equals(AccountType.INDIVIDUAL.getValue());\n    }'}
+{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enum', 'name': 'AccountType', 'method': '    public boolean isGroupAccount() {\n        return this.value.equals(AccountType.GROUP.getValue());\n    }'}
+{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enum', 'name': 'AccountType', 'method': '    public boolean isJLGAccount() {\n        return this.value.equals(AccountType.JLG.getValue());\n    }'}
+{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enum', 'name': 'AccountType', 'method': '    public boolean isGLIMAccount() {\n        return this.value.equals(AccountType.GLIM.getValue());\n    }'}
+{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enum', 'name': 'AccountType', 'method': '    public boolean isGSIMAccount() {\n        return this.value.equals(AccountType.GSIM.getValue());\n    }'}
+```
+
 == TODO
 
 * [*] Extract Class/Enum/Interface/etc. declaration names.
