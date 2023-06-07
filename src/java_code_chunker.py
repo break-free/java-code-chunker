@@ -7,10 +7,7 @@ from pathlib import Path
 declaration_types = { 
     javalang.tree.AnnotationDeclaration: "annotation",
     javalang.tree.ClassDeclaration: "class", 
-    javalang.tree.ConstructorDeclaration: "constructor", 
     javalang.tree.EnumDeclaration: "enumeration",
-    javalang.tree.FieldDeclaration: "field",
-    javalang.tree.MethodDeclaration: "method",
     javalang.tree.InterfaceDeclaration: "interface"
 }
 
@@ -108,7 +105,9 @@ def chunk_constants( tree: javalang.tree.CompilationUnit ) -> list :
                     arg_list.append(arg.value)
                 except AttributeError as e:
                     raise ChunkingError("When adding constants from" + t.name + 
-                                        ", raised in " + chunk_constants.__name__ + str(e))
+                                        ", raised in " + 
+                                        chunk_constants.__name__ + 
+                                        ": " + str(e))
             arg_string = ", ".join(arg_list)
             code = constant.name + "(" + arg_string + ")"
             chunks.append({"package": str(p_name),
@@ -172,15 +171,13 @@ def parse_code(code_path: str,
                codelines: list) -> javalang.tree.CompilationUnit:
     # Initialize return values
     tree = None
-    failed_file = ""
     # Merge list of code lines into one string
     code_text = ''.join(codelines)
     # Attempt to parse file; failures are recorded for return.
     try:
         tree = javalang.parse.parse( code_text )
     except javalang.parser.JavaSyntaxError as e:
-        print(str(e))
-        raise ParseError("Syntax error raised as " + str(e))
+        raise ParseError("Syntax error raised as JavaSyntaxError")
     # For simplicity, consider files with anything other than one type as 
     # failed
     try:
@@ -189,9 +186,11 @@ def parse_code(code_path: str,
                              "allowed, raised in " + str(parse_code.__name__))
     except AttributeError as e:
         raise ParseError("Tree's types do not exist, raised in " + 
-                         str(parse_code.__name__))
+                         str(parse_code.__name__) + ", " + str(e))
     return tree
 
+# Declare a couple of classes to catch exceptions, handled by calling
+# code
 class ChunkingError(Exception):
     pass
 
