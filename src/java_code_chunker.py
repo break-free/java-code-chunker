@@ -78,23 +78,25 @@ def get_node_text(codelines: list, startpos, endpos, startline, endline,
 
 def chunk_constants( tree: javalang.tree.CompilationUnit ) -> list :
 
-    t = None
+    # Initialize return variables
     chunks = []
-
+    # Initialize local variables
+    t = None
+    # Check that there is only one type in tree.types otherwise return
     if len(tree.types) == 1:
         t = tree.types[0]
     else:
         return chunks
-
+    # Attempt to read the package name (throws an error sometimes)
     try:
         p_name = tree.package.name
     except AttributeError as e:
         raise ChunkingError("Package name does not exist, raised in " + 
                          chunk_constants.__name__)
-
+    # Checks that the tree has constants (TODO: still neede?)
     if not hasattr(t.body, "constants"):
         return chunks
-
+    # Loop through nodes of a given type.
     for constant in t.body.constants:
         c_string = constant.name
         arg_list = []
@@ -147,8 +149,13 @@ def chunk_node_type(tree: javalang.tree.CompilationUnit,
     if len(tree.types) == 1:
         t = tree.types[0]
     else:
-        return None
-    t_type = str(declaration_types.get(type(t)))
+        return chunks
+    # Attempt to read the package name (throws an error sometimes)
+    try:
+        p_name = tree.package.name
+    except AttributeError as e:
+        raise ChunkingError("Package name does not exist, raised in " + 
+                         chunk_constants.__name__)
     # Loop through nodes of a given type.
     lex = None
     for _, node in tree.filter(node_type):
@@ -158,7 +165,8 @@ def chunk_node_type(tree: javalang.tree.CompilationUnit,
         )
         # Need this ternary operator since Fields have their names elsewhere
         mem_name = node.name if mem_str != "field" else node.declarators[0].name
-        chunks.append({"type": t_type,
+        chunks.append({"package": p_name,
+                       "type": str(declaration_types.get(type(t))),
                        "typename": t.name,
                        "member": mem_str,
                        "membername": mem_name,
