@@ -1,0 +1,19 @@
+= TODO
+
+== Items picked up along the way.
+
+* [ ] It is possible to loop over Nodes, allowing for segments of the code (whether variables or something else) to be gather and chunked.
+** The existing method extraction methods will work fine, just need to adjust for all Nodes, rather than just methods.
+** The exception to this are constants (e.g., `INVALID(0, accounttype.invalid)`), which will require special handling (likely reconstructive).
+
+* [*] Extract Class/Enum/Interface/etc. declaration names.
+* [*] Extract method names and store in an list with declaration type/name.
+* [*] Store method code in chunk array.
+* [ ] Extract variable sets from classes.
+* [ ] Store variable sets in chunk array.
+* [ ] Extract constructor methods from classes.
+* [ ] Store contructor methods in chunk array
+* [ ] Calculate the number of tokens for each array element as needed.
+* [ ] Set a token limit that must be met.
+* [ ] Determine if any array elements need to be split based on token limit.
+* [ ] Code into Python Package, https://packaging.python.org/en/latest/tutorials/packaging-projects/[as described here].

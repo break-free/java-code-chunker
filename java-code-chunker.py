@@ -1,6 +1,8 @@
+import src.java-code-chunker as CHUNKER
 import javalang
 import re
 import sys
+import inspect
 from pathlib import Path
 
 def get_method_start_end(method_node):
@@ -16,6 +18,10 @@ def get_method_start_end(method_node):
         if startpos is None and node == method_node:
             startpos = node.position
             startline = node.position.line if node.position is not None else None
+    print(startpos)
+    print(endpos)
+    print(startline)
+    print(endline)
     return startpos, endpos, startline, endline
 
 def get_method_text(startpos, endpos, startline, endline, last_endline_index):
@@ -49,15 +55,29 @@ def get_method_text(startpos, endpos, startline, endline, last_endline_index):
 
         return meth_text, (startline_index + 1), (last_endline_index + 1), last_endline_index
 
-def get_file_list(code_path, file_extension):
 
-    file_list = list(Path(code_path).glob("**/"+file_extension))
+def iterate(obj, tabs = "" ):
+    print(tabs+str(type(obj)))
+    tabs = tabs + "    "
 
-    if len(file_list) < 1:
-        print("The folder "+code_path+" should be populated with at least one .java file", file=sys.stderr)
-        sys.exit()
+    if isinstance(obj, (list, dict, map, set)): # (list, dict, map)):
+        if len(obj) > 0:
+            for item in obj:
+                iterate(item, tabs)
+    elif isinstance(obj, object):
+        for var in vars(obj):
+            print(tabs+str(var))
+            value = getattr(obj, var)
+            try:
+                if value != None:                    
+                    iterate(value, tabs)
+            except TypeError as e:
+                continue
+                print(tabs+"TypeError, Value = "+str(value))
+                print(tabs+str(e))
+    else:
+        print(obj)
 
-    return file_list
 
 if __name__ == "__main__":
     # Use the command parameter to gather data based on a file extension.
@@ -75,42 +95,57 @@ if __name__ == "__main__":
         javalang.tree.InterfaceDeclaration: "interface"
     }
     # Loop through each file and pull key information as chunks
-    files_failing_parsing = []
+    failed_files = []
     chunks = []
     for training in training_data:
-        with open(training, 'r') as r:
-            codelines = r.readlines()
-            code_text = ''.join(codelines)
-        # Attempt to parse file; failures are recorded for future reference.
-        try:
-            tree = javalang.parse.parse(code_text)
-        except javalang.parser.JavaSyntaxError as e:
-            files_failing_parsing.append(
-                str(training)+" due to JavaSyntaxError"
-            )
-            continue
-        # For simplicity, only consider files that contain one type only.
-        if len(tree.types) > 1:
-            file_failing_parsing(
-                str(training)+" due to more than one included type."
-            )
-            continue
+        tree, files_failing_parsing = CHUNKER.parseFile(training)
+        failed_files = files_failing_parsing + failed_files
 
-        package_name = tree.package.name
-        # print(tree.imports)
+#        iterate(tree)
+#        package_name = tree.package.name
         t = tree.types[0]
+#        try:
+#            for constant in t.body.constants:
+#                print(t.name)
+#                print(constant.name)
+#        except AttributeError as e:
+#            continue
+        for declaration in t.body.declarations:
+            if type(declaration) == javalang.tree.MethodDeclaration:
+                print(declaration.name)
+            elif type(declaration) == javalang.tree.FieldDeclaration:
+                print(declaration.declarators[0].name)
+        print(issubclass(type(t.body.constants[0]), javalang.tree.Node))
+        print(t.body.constants[0].position)
+        print(len(t.body.constants))
+        print(issubclass(type(t.body.declarations[0]), javalang.tree.Node))
+        print(t.body.declarations[0].position)
+        print(len(t.body.declarations))
+
+#         declaration_type = declaration_types.get(type(t))
+#         lex = None
+#         for field_node in tree.types[0].fields:
+#             startp, endp, startl, endl = get_method_start_end(field_node)
+#             field_text, startl, endl, lex = get_method_text(startp, endp, startl, endl, lex)
+#             chunks.append( {
+#                 "package": package_name,
+#                 "type": declaration_type,
+#                 "name": t.name,
+#                 "field": field_text
+#             } )
+
+        # print(tree.imports)
         # print(type(t))
-        declaration_type = declaration_types.get(type(t))
-        lex = None
-        for  method_node in t.methods:
-            startp, endp, startl, endl = get_method_start_end(method_node)
-            method_text, startl, endl, lex = get_method_text(startp, endp, startl, endl, lex)
-            chunks.append( {
-                "package": package_name,
-                "type": declaration_type,
-                "name": t.name,
-                "method": method_text
-            } )
+#         lex = None
+#         for  method_node in t.methods:
+#             startp, endp, startl, endl = get_method_start_end(method_node)
+#             method_text, startl, endl, lex = get_method_text(startp, endp, startl, endl, lex)
+#             chunks.append( {
+#                 "package": package_name,
+#                 "type": declaration_type,
+#                 "name": t.name,
+#                 "method": method_text
+#             } )
 
     # Print statements for testing
     if len(files_failing_parsing) > 0:
