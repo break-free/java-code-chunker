@@ -10,6 +10,7 @@
 ** Just need to confirm this assumption!
 
 * [ ] Code into Python Package, https://packaging.python.org/en/latest/tutorials/packaging-projects/[as described here].
+* [ ] Add documentation into the package code (to be professional and all that).
 
 == Completed items (latest completed items at the end)
 
