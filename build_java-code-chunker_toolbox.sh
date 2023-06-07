@@ -7,7 +7,7 @@ toolbox rm --force $NAME || true
 toolbox create --container $NAME
 
 # Install applications
-APPLICATIONS=" python3-devel python3-javalang "
+APPLICATIONS="python3-build python3-devel python3-javalang"
 
 ## Install applications
 $RUN sudo dnf install -y $APPLICATIONS;
