@@ -1,4 +1,4 @@
 training/all/*
 .git/
-src/__pycache__/
+# src/__pycache__/
 
