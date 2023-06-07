@@ -1,0 +1,39 @@
+= TODO
+
+== Items picked up along the way.
+
+* [ ] Calculate the average number of tokens per Java member (i.e., constant, field, constructor, method)
+* [ ] Loop over the `declarators` in a `FieldDeclaration` to confirm all are being picked up.
+
+** At the moment, only the first is being looked at.
+** This works as multiple declarators per line will have the same line number, hence it is chunked regardless.
+** Just need to confirm this assumption!
+
+* [ ] Code into Python Package, https://packaging.python.org/en/latest/tutorials/packaging-projects/[as described here].
+* [ ] Add documentation into the package code (to be professional and all that).
+
+== Completed items (latest completed items at the end)
+
+* [*] It is possible to loop over Nodes, allowing for segments of the code (whether variables or something else) to be gather and chunked.
+
+** The existing method extraction methods will work fine, just need to adjust for all Nodes, rather than just methods.
+** The exception to this are constants (e.g., `INVALID(0, accounttype.invalid)`), which will require special handling (likely reconstructive).
+
+* [*] Extract Class/Enum/Interface/etc. declaration names.
+* [*] Extract method names and store in an list with declaration type/name.
+* [*] Store method code in chunk array.
+* [*] Extract variable from classes.
+* [*] Store variable in chunk array.
+* [*] Extract constructor methods from classes.
+* [*] Store contructor methods in chunk array
+* [*] Calculate the number of tokens for each array element as needed.
+
+** Each chunk has its tokens calculated. Once all are complete, they are averaged.
+
+* *(OBE)* Set a token limit that must be met.
+
+** This will happen outside of this package, as the package only chunks Java code (its only purpose!).
+
+* *(OBE)* Determine if any array elements need to be split based on token limit.
+
+** This will happen outside of this package, as the package only chunks Java code (its only purpose!).
