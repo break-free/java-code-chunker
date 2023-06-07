@@ -1,4 +1,3 @@
-import inspect
 import javalang
 import sys
 from pathlib import Path
@@ -16,7 +15,7 @@ def get_code_lines(file: Path) -> list:
     with open( file, 'r' ) as r:
         return r.readlines()
 
-def get_file_list(code_path: str, file_extension: str) -> list:
+def get_file_list(code_path: str, file_extension: str = "*.java") -> list:
 
     file_list = list(Path(code_path).glob("**/"+file_extension))
 

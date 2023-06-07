@@ -22,6 +22,8 @@ if __name__ == "__main__":
         except JCC.ParseError as e:
             failed_files.append(str(file) + ": " + str(e))
         if tree != None:
+            # The `try` statements could be amalgamated but using them 
+            # separately for now to get as many chunks as possible.
             try:
                 chunks = chunks + JCC.chunk_constants(tree)
             except JCC.ChunkingError as e:
@@ -38,7 +40,6 @@ if __name__ == "__main__":
                 chunks = chunks + JCC.chunk_methods(tree, codelines)
             except JCC.ChunkingError as e:
                 failed_files.append(str(file) + ": " + str(e))
-            # JCC.iterate(tree)
         else:
             failed_files.append(str(file) + ", has no tree!")
 
