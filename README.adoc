@@ -14,6 +14,13 @@ The repository includes additional directories, such as `setup`, `info`, and `tr
 
 This Python package was produced using https://hatch.pypa.io/latest/config/build/[hatchling]. Refer to the `pyproject.toml` for specifics.
 
+Recommend reading the following sites to get familiar with Python packages and uploading to https://pypi.org.
+
+* https://packaging.python.org/en/latest/tutorials/packaging-projects/[Packaging Python Projects].
+* https://hatch.pypa.io/latest/config/build/[Hatchling - Build Configuration].
+* https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/#uploading-your-project-to-pypi[UUploading your Project to PyPI].
+* https://pypi.org/project/keyring/[keyring] (useful for keeping PyPI login safe).
+
 == Notes
 
 This code has been battle-tested with *one* application. If you encounter any issues then please https://github.com/break-free/java-code-chunker/issues[submit an issue ticket here on GitHub].
