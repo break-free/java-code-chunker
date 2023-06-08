@@ -12,7 +12,7 @@ exclude = [
 
 [project]
 name = "java-code-chunker"
-version = "0.1.1"
+version = "0.1.2"
 authors = [
     { name="Chris Mills", email="cmills@breakfreesolutions.com"}
 ]
@@ -28,8 +28,6 @@ classifiers = [
 ]
 dependencies = [
     "javalang",
-    "sys",
-    "pathlib",
 ]
 
 [project.urls]
