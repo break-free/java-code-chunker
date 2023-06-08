@@ -2,6 +2,14 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.build]
+exclude = [
+    "info",
+    "setup/",
+    "training/",
+    "main.py",
+]
+
 [project]
 name = "java-code-chunker"
 version = "0.1"
@@ -9,7 +17,9 @@ authors = [
     { name="Chris Mills", email="cmills@breakfreesolutions.com"}
 ]
 description = "Chunks Java type and member code extracts into a list made up of indexable dictionaries."
-readme = "README.adoc"
+# Note that AsciiDoc file is passed as 'plain' since the build engine
+# cannot use the '*.adoc' extension.
+readme = {file = "README.adoc", content-type = "text/plain"}
 requires-python = ">=3.7"
 classifiers = [
     "Programming Language :: Python :: 3",

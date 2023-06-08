@@ -55,4 +55,4 @@ Where:
 
 == Notes
 
-This code has been battle-tested with *one* application. If you encounter any issues then please submit an issue ticket here on GitHub.
+This code has been battle-tested with *one* application. If you encounter any issues then please https://github.com/break-free/java-code-chunker/issues[submit an issue ticket here on GitHub].
