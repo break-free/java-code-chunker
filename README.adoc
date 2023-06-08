@@ -6,7 +6,7 @@ Python library that chunks Java packages, methods, and variables into a Python l
 
 The GitHub repository for this package is https://github.com/break-free/java-code-chunker.
 
-The `main` branch is protected therefore any contributions require a branch to be created. Branch names should be preprended with either `feature_` or `fix_` to indicate whether new functionality or a refactor/fix is being made (e.g, `fix_update-readme`. Once the branch is complete, it can be merged back into `main`.
+The `main` branch is protected therefore any contributions require a branch to be created. Branch names should be preprended with either `feature_` or `fix_` to indicate whether new functionality or a refactor/fix is being made (e.g, `fix_update-readme`). Once the branch is complete, it can be merged back into `main`.
 
 The repository includes additional directories, such as `setup`, `info`, and `training`, and files, such as `main.py`, that includes additional resources for development and usage examples.
 
@@ -18,7 +18,7 @@ Recommend reading the following sites to get familiar with Python packages and u
 
 * https://packaging.python.org/en/latest/tutorials/packaging-projects/[Packaging Python Projects].
 * https://hatch.pypa.io/latest/config/build/[Hatchling - Build Configuration].
-* https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/#uploading-your-project-to-pypi[UUploading your Project to PyPI].
+* https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/#uploading-your-project-to-pypi[Uploading your Project to PyPI].
 * https://pypi.org/project/keyring/[keyring] (useful for keeping PyPI login safe).
 
 == Notes
