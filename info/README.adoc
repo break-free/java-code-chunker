@@ -1,0 +1,42 @@
+= Using `java-code-chunker`
+
+To use the Python package (as an example), use the following command:
+
+    $ python3 main.py training/test
+
+Where:
+
+* `training/test` is the directory with Java code in it in this example. Any directory with any number of subdirectories may be used. Note that `*.java` files will be searched for in this example.
+
+The output of the command will print to console something like this:
+
+[source,bash]
+```
+Number of files attempted to be parsed = 3.
+Number of failed files = 0. Failure rate = 0.00%
+Number of chunks generated = 52
+Average number of tokens per chunk = 74.29
+Chunks sample
+-------------
+{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enumeration', 'typename': 'AccountType', 'member': 'constant', 'membername': 'INVALID', 'code': 'INVALID(0, "accountType.invalid")'}
+{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enumeration', 'typename': 'AccountType', 'member': 'constant', 'membername': 'INDIVIDUAL', 'code': 'INDIVIDUAL(1, "accountType.individual")'}
+{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enumeration', 'typename': 'AccountType', 'member': 'constant', 'membername': 'GROUP', 'code': 'GROUP(2, "accountType.group")'}
+{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enumeration', 'typename': 'AccountType', 'member': 'constant', 'membername': 'JLG', 'code': 'JLG(3, "accountType.jlg")'}
+{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enumeration', 'typename': 'AccountType', 'member': 'constant', 'membername': 'GLIM', 'code': 'GLIM(4, "accountType.glim")'}
+{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enumeration', 'typename': 'AccountType', 'member': 'constant', 'membername': 'GSIM', 'code': 'GSIM(5, "accountType.gsim")'}
+{'type': 'enumeration', 'typename': 'AccountType', 'member': 'constructor', 'membername': 'AccountType', 'code': '    AccountType(final Integer value, final String code) {\n        this.value = value;\n        this.code = code;\n    }'}
+{'type': 'enumeration', 'typename': 'AccountType', 'member': 'field', 'membername': 'value', 'code': '    private final Integer value;\n'}
+{'type': 'enumeration', 'typename': 'AccountType', 'member': 'field', 'membername': 'code', 'code': '    private final String code;\n\n'}
+{'type': 'enumeration', 'typename': 'AccountType', 'member': 'method', 'membername': 'fromInt', 'code': '    public static AccountType fromInt(final Integer accountTypeValue) {\n\n        AccountType enumeration = AccountType.INVALID;\n        switch (accountTypeValue) {\n            case 1:\n                enumeration = AccountType.INDIVIDUAL;\n            break;\n            case 2:\n                enumeration = AccountType.GROUP;\n            break;\n            case 3:\n                enumeration = AccountType.JLG;\n            break;\n            case 4:\n                enumeration = AccountType.GLIM;\n            break;\n            case 5:\n                enumeration = AccountType.GSIM;\n            break;\n        }\n        return enumeration;\n    }'}
+...
+
+```
+
+Where:
+
+* `package` identifies the package of the declaration.
+* `type` identifies the Jave type (one of class, enumeration, association or interface).
+* `typename` is the name of the Java type.
+* `member` identifies the Java member (one of constant, field, method and constructor).
+* `membername` is the name of the member.
+* `code` contains the code of the specified type and member.

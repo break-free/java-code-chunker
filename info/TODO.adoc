@@ -14,6 +14,8 @@
 
 == Completed items (latest completed items at the end)
 
+=== Jun 6, 2023
+
 * [*] It is possible to loop over Nodes, allowing for segments of the code (whether variables or something else) to be gather and chunked.
 
 ** The existing method extraction methods will work fine, just need to adjust for all Nodes, rather than just methods.
@@ -22,6 +24,9 @@
 * [*] Extract Class/Enum/Interface/etc. declaration names.
 * [*] Extract method names and store in an list with declaration type/name.
 * [*] Store method code in chunk array.
+
+=== Jun 7, 2023
+
 * [*] Extract variable from classes.
 * [*] Store variable in chunk array.
 * [*] Extract constructor methods from classes.

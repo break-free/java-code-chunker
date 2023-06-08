@@ -4,55 +4,23 @@ Python library that chunks Java packages, methods, and variables into a Python l
 
 == Contributing
 
-The `main` branch is protected therefore any contributions require a branch to be created. Branch names should be preprended with either `feature_` or `fix_` to indicate whether new functionality or a refactor/fix is being made (e.g, `fix_update-readme`. Once the branch is complete, it can be merged back into `main`.
+The GitHub repository for this package is https://github.com/break-free/java-code-chunker.
 
-== Environment Set-up
+The `main` branch is protected therefore any contributions require a branch to be created. Branch names should be preprended with either `feature_` or `fix_` to indicate whether new functionality or a refactor/fix is being made (e.g, `fix_update-readme`). Once the branch is complete, it can be merged back into `main`.
 
-A `toolbox` script, for use on a Fedora Linux system, is provided to create a `java-code-chunker` Toolbox with necessary libraries. Other Linux operating systems can follow the steps within the script to install. Microsoft Windows users could use WSL (not tested).
+The repository includes additional directories, such as `setup`, `info`, and `training`, and files, such as `main.py`, that includes additional resources for development and usage examples.
 
-== Using `java-code-chunker`
+== Packaging
 
-To use the Python package (as an example), use the following command:
+This Python package was produced using https://hatch.pypa.io/latest/config/build/[hatchling]. Refer to the `pyproject.toml` for specifics.
 
-    $ python3 main.py training/test
+Recommend reading the following sites to get familiar with Python packages and uploading to https://pypi.org.
 
-Where:
-
-* `training/test` is the directory with Java code in it in this example. Any directory with any number of subdirectories may be used. Note that `*.java` files will be searched for in this example.
-
-The output of the command will print to console something like this:
-
-[source,bash]
-```
-Number of files attempted to be parsed = 3.
-Number of failed files = 0. Failure rate = 0.00%
-Number of chunks generated = 52
-Average number of tokens per chunk = 74.29
-Chunks sample
--------------
-{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enumeration', 'typename': 'AccountType', 'member': 'constant', 'membername': 'INVALID', 'code': 'INVALID(0, "accountType.invalid")'}
-{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enumeration', 'typename': 'AccountType', 'member': 'constant', 'membername': 'INDIVIDUAL', 'code': 'INDIVIDUAL(1, "accountType.individual")'}
-{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enumeration', 'typename': 'AccountType', 'member': 'constant', 'membername': 'GROUP', 'code': 'GROUP(2, "accountType.group")'}
-{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enumeration', 'typename': 'AccountType', 'member': 'constant', 'membername': 'JLG', 'code': 'JLG(3, "accountType.jlg")'}
-{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enumeration', 'typename': 'AccountType', 'member': 'constant', 'membername': 'GLIM', 'code': 'GLIM(4, "accountType.glim")'}
-{'package': 'org.apache.fineract.portfolio.accountdetails.domain', 'type': 'enumeration', 'typename': 'AccountType', 'member': 'constant', 'membername': 'GSIM', 'code': 'GSIM(5, "accountType.gsim")'}
-{'type': 'enumeration', 'typename': 'AccountType', 'member': 'constructor', 'membername': 'AccountType', 'code': '    AccountType(final Integer value, final String code) {\n        this.value = value;\n        this.code = code;\n    }'}
-{'type': 'enumeration', 'typename': 'AccountType', 'member': 'field', 'membername': 'value', 'code': '    private final Integer value;\n'}
-{'type': 'enumeration', 'typename': 'AccountType', 'member': 'field', 'membername': 'code', 'code': '    private final String code;\n\n'}
-{'type': 'enumeration', 'typename': 'AccountType', 'member': 'method', 'membername': 'fromInt', 'code': '    public static AccountType fromInt(final Integer accountTypeValue) {\n\n        AccountType enumeration = AccountType.INVALID;\n        switch (accountTypeValue) {\n            case 1:\n                enumeration = AccountType.INDIVIDUAL;\n            break;\n            case 2:\n                enumeration = AccountType.GROUP;\n            break;\n            case 3:\n                enumeration = AccountType.JLG;\n            break;\n            case 4:\n                enumeration = AccountType.GLIM;\n            break;\n            case 5:\n                enumeration = AccountType.GSIM;\n            break;\n        }\n        return enumeration;\n    }'}
-...
-
-```
-
-Where:
-
-* `package` identifies the package of the declaration.
-* `type` identifies the Jave type (one of class, enumeration, association or interface).
-* `typename` is the name of the Java type.
-* `member` identifies the Java member (one of constant, field, method and constructor).
-* `membername` is the name of the member.
-* `code` contains the code of the specified type and member.
+* https://packaging.python.org/en/latest/tutorials/packaging-projects/[Packaging Python Projects].
+* https://hatch.pypa.io/latest/config/build/[Hatchling - Build Configuration].
+* https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/#uploading-your-project-to-pypi[Uploading your Project to PyPI].
+* https://pypi.org/project/keyring/[keyring] (useful for keeping PyPI login safe).
 
 == Notes
 
-This code has been battle-tested with *one* application. If you encounter any issues then please submit an issue ticket here on GitHub.
+This code has been battle-tested with *one* application. If you encounter any issues then please https://github.com/break-free/java-code-chunker/issues[submit an issue ticket here on GitHub].
