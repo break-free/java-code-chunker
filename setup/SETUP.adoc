@@ -1,0 +1,4 @@
+= Environment Set-up
+
+A `toolbox` script, for use on a Fedora Linux system, is provided to create a `java-code-chunker` Toolbox with necessary libraries. Other Linux operating systems can follow the steps within the script to install. Microsoft Windows users could use WSL (not tested).
+
