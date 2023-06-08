@@ -1,4 +1,4 @@
-import src.java_code_chunker as JCC 
+import src.java_code_chunker.chunker as JCC 
 import sys
 import tiktoken
 
