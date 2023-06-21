@@ -1,4 +1,5 @@
-import src.java_code_chunker.chunker as JCC 
+import src.code_chunker.parser as file_parser
+import src.code_chunker.java_code as JCC
 import sys
 import tiktoken
 
@@ -9,14 +10,14 @@ if __name__ == "__main__":
         print("Enter one and only one absolute or relative path to ")
         print("a directory containing the Java code to be chunked.")
     else:
-        training_data = JCC.get_file_list(sys.argv[1], "*.java")
+        training_data = file_parser.get_file_list(sys.argv[1], "*.java")
 
     # Loop through each file and pull key information as chunks
     chunks = []
     failed_files = []
     
     for file in training_data:
-        codelines = JCC.get_code_lines(file)
+        codelines = file_parser.get_code_lines(file)
         try:
             tree = JCC.parse_code(file, codelines)
         except JCC.ParseError as e:

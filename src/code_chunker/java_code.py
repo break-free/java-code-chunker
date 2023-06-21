@@ -1,6 +1,4 @@
 import javalang
-import sys
-from pathlib import Path
 
 # Declare a dict/lookup to abbreviate Java type declarations.
 declaration_types = { 
@@ -9,22 +7,6 @@ declaration_types = {
     javalang.tree.EnumDeclaration: "enumeration",
     javalang.tree.InterfaceDeclaration: "interface"
 }
-
-def get_code_lines(file: Path) -> list:
-    # Open file containing code
-    with open( file, 'r' ) as r:
-        return r.readlines()
-
-def get_file_list(code_path: str, file_extension: str = "*.java") -> list:
-
-    file_list = list(Path(code_path).glob("**/"+file_extension))
-
-    if len(file_list) < 1:
-        print("The folder "+code_path+" should be populated with at least one "
-              +file_extension+" file", file=sys.stderr)
-        sys.exit()
-
-    return file_list
 
 def get_node_start_end(tree: javalang.tree.CompilationUnit,
                        d_node: javalang.tree.Declaration) -> int | int | int | int:
