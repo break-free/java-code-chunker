@@ -6,11 +6,15 @@ import tiktoken
 if __name__ == "__main__":
     # Use the command parameter to gather data based on a file extension.
     training_data = list()
-    if len(sys.argv) != 2 :
-        print("Enter one and only one absolute or relative path to ")
-        print("a directory containing the Java code to be chunked.")
+    if len(sys.argv) != 3:
+        print("2 command parameters required: (1) Enter one and only one absolute or relative path")
+        print("to a directory containing the code to be chunked. (2) Enter the file extension for ")
+        print("the files that need to be chunked. (e.g. python3 main.py training/test java)")
+        exit()
     else:
-        training_data = file_parser.get_file_list(sys.argv[1], "*.java")
+        fileExtension = "*." + sys.argv[2]
+        print(fileExtension)
+        training_data = file_parser.get_file_list(sys.argv[1], fileExtension)
 
     # Loop through each file and pull key information as chunks
     chunks = []
