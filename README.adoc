@@ -6,6 +6,15 @@ Current list of languages that can be chunked:
 
 * Java (packages, methods, and variables)
 
+== Modules
+=== parser.py
+* Contains functions to read code lines from given files and file paths
+* get_file_list(code_path, file_extension) - returns a list of files from the path passed in
+* get_code_lines(file) - returns the code from the file name passed in
+
+=== java_code.py
+* Contains functions to split java files into smaller chunks
+
 == Contributing
 
 The GitHub repository for this package is https://github.com/break-free/data-chunker.
