@@ -11,12 +11,13 @@ exclude = [
 ]
 
 [project]
-name = "java-code-chunker"
-version = "0.2.0"
+name = "data-chunker"
+version = "0.0.1"
 authors = [
-    { name="Chris Mills", email="cmills@breakfreesolutions.com"}
+    { name="Chris Mills", email="cmills@breakfreesolutions.com"},
+    { name="Colin Pitawanakwat, email="cpitawanakwat@breakfreesolutions.com"}
 ]
-description = "Chunks Java type and member code extracts into a list made up of indexable dictionaries."
+description = "Chunks code into a list made up of indexable dictionaries."
 # Note that AsciiDoc file is passed as 'plain' since the build engine
 # cannot use the '*.adoc' extension.
 readme = {file = "README.adoc", content-type = "text/plain"}
@@ -31,6 +32,5 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/break-free/java-code-chunker"
-"Issues" = "https://github.com/break-free/java-code-chunker/issues"
-
+"Homepage" = "https://github.com/break-free/data-chunker"
+"Issues" = "https://github.com/break-free/data-chunker/issues"

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create container
-NAME=java-code-chunker
+NAME=data-chunker
 RUN="toolbox run --container $NAME"
 toolbox rm --force $NAME || true
 toolbox create --container $NAME
