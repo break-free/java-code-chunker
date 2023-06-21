@@ -13,40 +13,45 @@ if __name__ == "__main__":
         exit()
     else:
         fileExtension = "*." + sys.argv[2]
-        print(fileExtension)
         training_data = file_parser.get_file_list(sys.argv[1], fileExtension)
 
     # Loop through each file and pull key information as chunks
     chunks = []
     failed_files = []
     
-    for file in training_data:
-        codelines = file_parser.get_code_lines(file)
-        try:
-            tree = JCC.parse_code(file, codelines)
-        except JCC.ParseError as e:
-            failed_files.append(str(file) + ": " + str(e))
-        if tree != None:
-            # The `try` statements could be amalgamated but using them 
-            # separately for now to get as many chunks as possible.
+    if fileExtension == "*.java":
+        for file in training_data:
+            codelines = file_parser.get_code_lines(file)
             try:
-                chunks = chunks + JCC.chunk_constants(tree)
-            except JCC.ChunkingError as e:
+                tree = JCC.parse_code(file, codelines)
+            except JCC.ParseError as e:
                 failed_files.append(str(file) + ": " + str(e))
-            try:
-                chunks = chunks + JCC.chunk_constructors(tree, codelines)
-            except JCC.ChunkingError as e:
-                failed_files.append(str(file) + ": " + str(e))
-            try:
-                chunks = chunks + JCC.chunk_fields(tree, codelines)
-            except JCC.ChunkingError as e:
-                failed_files.append(str(file) + ": " + str(e))
-            try:
-                chunks = chunks + JCC.chunk_methods(tree, codelines)
-            except JCC.ChunkingError as e:
-                failed_files.append(str(file) + ": " + str(e))
-        else:
-            failed_files.append(str(file) + ", has no tree!")
+            if tree != None:
+                # The `try` statements could be amalgamated but using them 
+                # separately for now to get as many chunks as possible.
+                try:
+                    chunks = chunks + JCC.chunk_constants(tree)
+                except JCC.ChunkingError as e:
+                    failed_files.append(str(file) + ": " + str(e))
+                try:
+                    chunks = chunks + JCC.chunk_constructors(tree, codelines)
+                except JCC.ChunkingError as e:
+                    failed_files.append(str(file) + ": " + str(e))
+                try:
+                    chunks = chunks + JCC.chunk_fields(tree, codelines)
+                except JCC.ChunkingError as e:
+                    failed_files.append(str(file) + ": " + str(e))
+                try:
+                    chunks = chunks + JCC.chunk_methods(tree, codelines)
+                except JCC.ChunkingError as e:
+                    failed_files.append(str(file) + ": " + str(e))
+            else:
+                failed_files.append(str(file) + ", has no tree!")
+    
+    else:
+        inputExtension = sys.argv[2]
+        print(f'''File extension type "{inputExtension}" is currently not supported.''')
+        exit()
 
     attempts = len(training_data)
     failures = len(failed_files)
