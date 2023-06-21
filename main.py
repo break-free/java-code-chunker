@@ -1,5 +1,5 @@
-import src.code_chunker.parser as file_parser
-import src.code_chunker.java_code as JCC
+import src.data_chunker.parser as file_parser
+import src.data_chunker.java_code as JCC
 import sys
 import tiktoken
 
