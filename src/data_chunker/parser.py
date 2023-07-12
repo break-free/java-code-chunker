@@ -24,5 +24,5 @@ def get_file_list(code_path, file_extension: str = ".java"):
             + " file",
             file=sys.stderr,
         )
-
+        sys.exit()
     return file_list
