@@ -1,14 +1,27 @@
-= java-code-chunker
+= data-chunker
 
-Python library that chunks Java packages, methods, and variables into a Python list consisting of a number of Python dictionaries. This list of dictionaries can then be used for vector-store creation, which can provide granular context for OpenAI queries.
+Python library that chunks code into a Python list consisting of Python dictionaries. This list of dictionaries can then be used for vector-store creation, which can provide granular context for OpenAI queries.
+
+Current list of languages that can be chunked:
+
+* Java (packages, methods, and variables)
+
+== Modules
+=== parser.py
+* Contains functions to read code lines from given files and file paths
+* get_file_list(code_path, file_extension) - returns a list of files from the path passed in
+* get_code_lines(file) - returns the code from the file name passed in
+
+=== java_code.py
+* Contains functions to split java files into smaller chunks
 
 == Contributing
 
-The GitHub repository for this package is https://github.com/break-free/java-code-chunker.
+The GitHub repository for this package is https://github.com/break-free/data-chunker.
 
-The `main` branch is protected therefore any contributions require a branch to be created. Branch names should be preprended with either `feature_` or `fix_` to indicate whether new functionality or a refactor/fix is being made (e.g, `fix_update-readme`). Once the branch is complete, it can be merged back into `main`.
+The `main` branch is protected therefore any contributions require a branch to be created. Branch names should be preprended with either `feat/` or `fix/` to indicate whether new functionality or a refactor/fix is being made (e.g, `fix/update-readme`). Once the branch is complete, it can be merged back into `main`.
 
-The repository includes additional directories, such as `setup`, `info`, and `training`, and files, such as `main.py`, that includes additional resources for development and usage examples.
+The repository includes additional directories, such as `setup`, `info`, and `training`, and files such as `main.py`, that includes additional resources for development and usage examples.
 
 == Packaging
 
