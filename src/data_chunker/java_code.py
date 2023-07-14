@@ -64,6 +64,7 @@ def chunk_constants( tree: javalang.tree.CompilationUnit ) -> list :
     chunks = []
     # Initialize local variables
     t = None
+
     # Check that there is only one type in tree.types otherwise return
     if len(tree.types) == 1:
         t = tree.types[0]
@@ -158,15 +159,22 @@ def chunk_node_type(tree: javalang.tree.CompilationUnit,
 
 def parse_code(code_path: str, 
                codelines: list) -> javalang.tree.CompilationUnit:
+
     # Initialize return values
     tree = None
+
     # Merge list of code lines into one string
     code_text = ''.join(codelines)
+
     # Attempt to parse file; failures are recorded for return.
+    #tree = javalang.parse.parse( code_text )
     try:
         tree = javalang.parse.parse( code_text )
     except javalang.parser.JavaSyntaxError as e:
         raise ParseError("Syntax error raised as JavaSyntaxError")
+    except javalang.tokenizer.LexerError as le:
+        raise ParseError("Tokenizer error raised as LexerError")
+
     # For simplicity, consider files with anything other than one type as 
     # failed
     try:
