@@ -121,9 +121,9 @@ def chunk_methods(tree: javalang.tree.CompilationUnit,
 def chunk_all(tree: javalang.tree.CompilationUnit,
                   codelines: list) -> list:
     chunks = chunk_constants(tree)
-    chunks = chunks + JCChunker.chunk_constructors(tree, codelines)
-    chunks = chunks + JCChunker.chunk_fields(tree, codelines)
-    chunks = chunks + JCChunker.chunk_methods(tree, codelines)
+    chunks = chunks + chunk_constructors(tree, codelines)
+    chunks = chunks + chunk_fields(tree, codelines)
+    chunks = chunks + chunk_methods(tree, codelines)
     return chunks
 
 def chunk_node_type(tree: javalang.tree.CompilationUnit,
