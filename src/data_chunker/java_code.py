@@ -118,7 +118,13 @@ def chunk_methods(tree: javalang.tree.CompilationUnit,
     node_type = javalang.tree.MethodDeclaration
     return chunk_node_type(tree, node_type, "method", codelines)
 
-
+def chunk_all(tree: javalang.tree.CompilationUnit,
+                  codelines: list) -> list:
+    chunks = chunk_constants(tree)
+    chunks = chunks + chunk_constructors(tree, codelines)
+    chunks = chunks + chunk_fields(tree, codelines)
+    chunks = chunks + chunk_methods(tree, codelines)
+    return chunks
 
 def chunk_node_type(tree: javalang.tree.CompilationUnit,
                     node_type: javalang.tree.Declaration,
