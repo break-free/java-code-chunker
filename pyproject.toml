@@ -12,7 +12,7 @@ exclude = [
 
 [project]
 name = "data-chunker"
-version = "0.0.2"
+version = "0.0.4"
 authors = [
     { name="Chris Mills", email="cmills@breakfreesolutions.com"},
     { name="Colin Pitawanakwat", email="cpitawanakwat@breakfreesolutions.com"}
